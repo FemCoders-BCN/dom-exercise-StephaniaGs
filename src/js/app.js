@@ -19,6 +19,7 @@ const colors = {
 const productImage = document.querySelector(".product-image");
 const productTitle = document.querySelector(".product-title");
 const itemTag = document.querySelector("h3");
+
 const newPrice = document.querySelector(".new-price");
 const oldPrice = document.querySelector(".old-price");
 const cartButton = document.getElementById("button");
@@ -65,3 +66,4 @@ function showMessage(message) {
         whiteButton.style.display = "none";
     }, 2000);
 }
+export {changeColor}
