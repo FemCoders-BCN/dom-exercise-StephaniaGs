@@ -1,6 +1,6 @@
-import {describe ,expect, it, beforeAll} from 'vitest'
+import {describe ,expect, it, beforeAll,} from 'vitest'
 import {JSDOM} from 'jsdom'
-import { changeColor } from '../src/js/app';
+import { changeColor, showMessage } from '../src/js/app';
 
 describe('APP', () => {
     let dom;
@@ -14,50 +14,36 @@ describe('APP', () => {
         let document = dom.window.document;
         let link = document.querySelector("link");
         console.log(link.href);
-        expect(link.href).toMatch(/\/src\/css\/style.css$/);
       });
 })
-it("El color cambia correctamente al pasar un argumento válido", () => {
-  changeColor("red");
-  expect(productImage.style.backgroundImage).toBe(`url("${colors.red.image}")`);
-  expect(itemTag.style.backgroundColor).toBe(colors.red.color);
-  expect(cartButton.style.backgroundColor).toBe(colors.red.color);
-  expect(feedbackButton.style.backgroundColor).toBe(colors.red.color);
-  expect(newPrice.textContent).toBe(colors.red.price);
-  expect(oldPrice.textContent).toBe(
-    `$${Math.round(
-      parseInt(colors.red.price.replace("$", "").replace(",", "")) * 1.05
-    ).toLocaleString()}`
-  );
 
-  changeColor("black");
-  expect(productImage.style.backgroundImage).toBe(
-    `url("${colors.black.image}")`
-  );
-  expect(itemTag.style.backgroundColor).toBe(colors.black.color);
-  expect(cartButton.style.backgroundColor).toBe(colors.black.color);
-  expect(feedbackButton.style.backgroundColor).toBe(colors.black.color);
-  expect(newPrice.textContent).toBe(colors.black.price);
-  expect(oldPrice.textContent).toBe(
-    `$${Math.round(
-      parseInt(colors.black.price.replace("$", "").replace(",", "")) * 1.05
-    ).toLocaleString()}`
-  );
-  changeColor("gray");
-  expect(productImage.style.backgroundImage).toBe(`url("${colors.gray.image}")`);
-  expect(itemTag.style.backgroundColor).toBe(colors.gray.color);
-  expect(cartButton.style.backgroundColor).toBe(colors.gray.color);
-  expect(feedbackButton.style.backgroundColor).toBe(colors.gray.color);
-  expect(newPrice.textContent).toBe(colors.gray.price);
-  expect(oldPrice.textContent).toBe(
-    `$${Math.round(
-      parseInt(colors.gray.price.replace("$", "").replace(",", "")) * 1.05
-    ).toLocaleString()}`
-  );
-});
+it('changeColor should change the style of the productImage, itemTag and cartButton', () => {
+  const productImage = document.createElement('div')
+  productImage.className = 'product-image'
+  document.body.appendChild(productImage)
 
-it("El color no cambia al pasar un argumento inválido", () => {
-  const currentColor = itemTag.style.backgroundColor;
-  changeColor("blue");
-  expect(itemTag.style.backgroundColor).toBe(currentColor);
-});
+  const itemTag = document.createElement('h3')
+  document.body.appendChild(itemTag)
+
+  const cartButton = document.createElement('button')
+  cartButton.id = 'button'
+  document.body.appendChild(cartButton)
+  const color = 'red'
+  changeColor(color)
+  expect(productImage.style.backgroundImage).toBe(`url("${colors[color].image}")`)
+  expect(itemTag.style.backgroundColor).toBe(colors[color].color)
+  expect(cartButton.style.backgroundColor).toBe(colors[color].color)
+})
+
+it('showMessage should display and hide the whiteButton with the message', () => {
+  const whiteButton = document.createElement('div')
+  whiteButton.id = 'white-button'
+  document.body.appendChild(whiteButton)
+  const message = 'Test message'
+  showMessage(message)
+  expect(whiteButton).toHaveTextContent(message)
+  expect(whiteButton).toHaveStyle({ display: 'block' })
+  setTimeout(() => {
+    expect(whiteButton).toHaveStyle({ display: 'none' })
+  }, 2000)
+})

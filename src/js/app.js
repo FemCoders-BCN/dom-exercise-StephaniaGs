@@ -17,53 +17,48 @@ const colors = {
 };
 
 const productImage = document.querySelector(".product-image");
-const productTitle = document.querySelector(".product-title");
 const itemTag = document.querySelector("h3");
-
-const newPrice = document.querySelector(".new-price");
-const oldPrice = document.querySelector(".old-price");
 const cartButton = document.getElementById("button");
-const feedbackButton = document.querySelector(".feedback");
 const whiteButton = document.getElementById("white-button");
 
 
-document.querySelector(".red").addEventListener("click", function () {
-    changeColor("red");
-});
+document.addEventListener("DOMContentLoaded", function () {
+    
+    document.querySelector(".red").addEventListener("click", function () {
+        changeColor("red");
+    });
 
-document.querySelector(".black").addEventListener("click", function () {
-    changeColor("black");
-});
+    document.querySelector(".black").addEventListener("click", function () {
+        changeColor("black");
+    });
 
-document.querySelector(".gray").addEventListener("click", function () {
-    changeColor("gray");
+    document.querySelector(".gray").addEventListener("click", function () {
+        changeColor("gray");
+    });
 });
 
 function changeColor(color) {
     productImage.style.backgroundImage = `url("${colors[color].image}")`;
     itemTag.style.backgroundColor = colors[color].color; 
     cartButton.style.backgroundColor = colors[color].color;
-    feedbackButton.style.backgroundColor = colors[color].color;
-    newPrice.textContent = colors[color].price;
-    oldPrice.textContent = `$${Math.round(
-      parseInt(colors[color].price.replace("$", "").replace(",", "")) * 1.05
-    ).toLocaleString()}`;
+    
 }
 
-
-cartButton.addEventListener("click", function () {
-    showMessage("¡Has agregado el coche al carrito!");
+document.addEventListener("DOMContentLoaded", function () {
+cartButton.addEventListener('click', function () {
+  // Llamar a la función showMessage con el mensaje que queremos mostrar
+  showMessage('¡Has agregado el coche al carrito!')
+});
 });
 
-feedbackButton.addEventListener("click", function () {
-    showMessage("¡Gracias por tu opinión!");
-});
-
+// Definir la función showMessage
 function showMessage(message) {
-    whiteButton.textContent = message;
-    whiteButton.style.display = "block";
-    setTimeout(function () {
-        whiteButton.style.display = "none";
-    }, 2000);
+  // Cambiar el texto y el estilo del whiteButton
+  whiteButton.textContent = message
+  whiteButton.style.display = 'block'
+  // Ocultar el whiteButton después de dos segundos
+  setTimeout(function () {
+    whiteButton.style.display = 'none'
+  }, 2000)
 }
-export {changeColor}
+export {changeColor, showMessage}
